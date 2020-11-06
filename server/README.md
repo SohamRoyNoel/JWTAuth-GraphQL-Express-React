@@ -17,3 +17,9 @@
 
 #### reflect-metadata install
 ```npm install reflect-metadata --save```
+
+#### install express apollo-server-express graphql
+```yarn add express apollo-server-express graphql```
+
+#### install graphql and express type as DEV dependency
+```yarn add -D @types/express @types/graphql```
