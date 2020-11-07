@@ -22,4 +22,23 @@
 ```yarn add express apollo-server-express graphql```
 
 #### install graphql and express type as DEV dependency
-```yarn add -D @types/express @types/graphql```
+```yarn add -D @types/express @types/graphql``` 
+
+#### add type-graphql to avoid GQL query mess
+```yarn add type-graphql```
+
+#### password Hashing 
+```yarn add bcryptjs```
+
+#### add TS dependencies for bcrypt as DEV dependencies
+```yarn add -D @types/bcryptjs```
+
+#### add nodemon as DEV dependency
+```yarn add -D nodemon```
+
+#### see the change in package.json
+```"start": "nodemon --exec ts-node src/index.ts"```
+
+
+#### Note:
+      -in order to expose field in GQL query user @Field() annotation along with @ObjectType() on the ENTITY model
