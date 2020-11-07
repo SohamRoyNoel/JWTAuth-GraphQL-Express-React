@@ -39,6 +39,12 @@
 #### see the change in package.json
 ```"start": "nodemon --exec ts-node src/index.ts"```
 
+#### install JWT
+```yarn add jsonwebtoken```
+
+#### install JWT type for TS
+```yarn add -D @types/jsonwebtoken```
+
 
 #### Note:
       -in order to expose field in GQL query user @Field() annotation along with @ObjectType() on the ENTITY model
