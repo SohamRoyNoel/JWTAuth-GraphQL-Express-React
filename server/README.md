@@ -45,6 +45,14 @@
 #### install JWT type for TS
 ```yarn add -D @types/jsonwebtoken```
 
+#### install DOTEnv for environment variables
+```yarn add dotenv```
+
 
 #### Note:
       -in order to expose field in GQL query user @Field() annotation along with @ObjectType() on the ENTITY model
+      - make ```"request.credentials": "include",``` this change on GQL playground just to make sure you get all Cookies as refresh token
+
+
+
+

@@ -1,12 +1,18 @@
-import { Arg, Field, Mutation, ObjectType, Query, Resolver } from 'type-graphql';
+import { Arg, Ctx, Field, Mutation, ObjectType, Query, Resolver } from 'type-graphql';
 import { User } from './entity/User';
 import { compare, hash } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
+// import { ObjectID } from 'typeorm';
+import { Context } from './context';
+import { createAccessToken, createRefreshToken } from './auth';
 
 @ObjectType()
 class LoginResponse {
       @Field()
       accessToken: String
+      @Field()
+      userEmail: String
+      @Field()
+      userId: String
 }
 
 @Resolver()
@@ -24,9 +30,11 @@ export class UserResolver {
       @Mutation(() => LoginResponse)
       async login(
             @Arg('email') email:string,
-            @Arg('password') password:string
+            @Arg('password') password:string,
+            @Ctx() { res }:Context // set the CONTEXT for JWT refresh token that will be passed as COOKIE
       ) : Promise<LoginResponse> {
             const user = await User.findOne({ where: {email} });
+            console.log(user);
 
             if(!user){
                   throw new Error('No User found');
@@ -39,10 +47,18 @@ export class UserResolver {
             }
             
             // login Success
+            res.cookie(
+                  "jid",
+                  createRefreshToken(user),
+                  {
+                        httpOnly:true
+                  }                         
+            )
+
             return {
-                  accessToken: sign({userId: user.id, }, "tokenSecretBoom", {
-                        expiresIn: "15m"
-                  })
+                  accessToken: createAccessToken(user),                
+                  userEmail: user.email,
+                  userId: user.id.toString()
             }
                         
       }
