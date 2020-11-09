@@ -48,6 +48,11 @@
 #### install DOTEnv for environment variables
 ```yarn add dotenv```
 
+#### install a cookie parser to get the cookie for Refresh token
+```yarn add cookie-parser```
+
+#### Add cookie parser type as a DEV dependency
+```yarn add -D @types/cookie-parser```
 
 #### Note:
       -in order to expose field in GQL query user @Field() annotation along with @ObjectType() on the ENTITY model
