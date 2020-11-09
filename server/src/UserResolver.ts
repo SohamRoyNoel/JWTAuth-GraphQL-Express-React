@@ -1,9 +1,9 @@
-import { Arg, Ctx, Field, Mutation, ObjectType, Query, Resolver } from 'type-graphql';
+import { Arg, Ctx, Field, Mutation, ObjectType, Query, Resolver, UseMiddleware } from 'type-graphql';
 import { User } from './entity/User';
 import { compare, hash } from 'bcryptjs';
-// import { ObjectID } from 'typeorm';
 import { Context } from './context';
 import { createAccessToken, createRefreshToken } from './auth';
+import { auth } from './middleware/auth';
 
 @ObjectType()
 class LoginResponse {
@@ -25,6 +25,15 @@ export class UserResolver {
       @Query(() => [User])
       users() {
             return User.find();
+      }
+
+      @Query(() => String)
+      @UseMiddleware(auth)
+      bye(
+            @Ctx() { payload }: Context
+      ){
+            console.log(payload);
+            return `User ID is : ${payload!.userId}`;
       }
 
       @Mutation(() => LoginResponse)

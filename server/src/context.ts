@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
+import { ObjectID } from 'typeorm';
 
 export interface Context {
       req: Request,
-      res: Response
+      res: Response,
+      payload?: { userId: String } // ? signifies as Optional parameter
 }
